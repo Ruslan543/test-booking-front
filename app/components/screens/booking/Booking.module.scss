@@ -1,0 +1,14 @@
+.booking {
+  width: 20rem;
+  margin: 0 auto;
+  margin-top: 10rem;
+
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+
+  .inputBox {
+    display: flex;
+    flex-direction: column;
+  }
+}
