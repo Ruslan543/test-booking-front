@@ -1,13 +1,11 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { errorCatch } from "api/api.helper";
 import { useRouter } from "next/router";
-import { toastr } from "react-redux-toastr";
+import toast from "react-hot-toast";
 
 import { IBookingCreateInput } from "@/shared/types/booking.types";
 
 import { BookingService } from "@/services/booking.service";
-
-import { toastError } from "@/utils/toast-error";
 
 export function useCreateBooking() {
   const queryClient = useQueryClient();
@@ -18,11 +16,11 @@ export function useCreateBooking() {
       BookingService.create({ roomId: String(query.roomId), ...data }),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["bookings"] });
-      toastr.success("Бронирование", "комната успешно забронирована");
+      toast.success("Комната успешно забронирована!");
       push("/bookings");
     },
     onError: (error) => {
-      toastError(error, "Бронирование комнаты");
+      toast.error(errorCatch(error));
     },
   });
 

@@ -14,7 +14,9 @@ const Auth: FC<Props> = ({ onSubmit, children }) => {
 
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    onSubmit({ email, password });
+    try {
+      onSubmit({ email, password });
+    } catch (e) {}
   }
 
   return (

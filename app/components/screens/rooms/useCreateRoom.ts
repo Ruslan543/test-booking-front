@@ -1,10 +1,9 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { errorCatch } from "api/api.helper";
 import { useRouter } from "next/router";
-import { toastr } from "react-redux-toastr";
+import toast from "react-hot-toast";
 
 import { RoomService } from "@/services/room.service";
-
-import { toastError } from "@/utils/toast-error";
 
 export function useCreateRoom() {
   const queryClient = useQueryClient();
@@ -14,11 +13,11 @@ export function useCreateRoom() {
     mutationFn: RoomService.create,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["rooms"] });
-      toastr.success("Создание", "комната успешно создана");
+      toast.success("Комната успешно создана!");
       push("/rooms");
     },
     onError: (error) => {
-      toastError(error, "Создание комнаты");
+      toast.error(errorCatch(error));
     },
   });
 

@@ -1,9 +1,8 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { errorCatch } from "api/api.helper";
+import toast from "react-hot-toast";
 
 import { RoomService } from "@/services/room.service";
-
-import { toastError } from "@/utils/toast-error";
 
 export function useRooms() {
   const queryClient = useQueryClient();
@@ -26,7 +25,7 @@ export function useRooms() {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["rooms"] });
     },
-    onError: (error) => toastError(error, "Получение комнат"),
+    onError: (error) => toast.error(errorCatch(error)),
   });
 
   return { rooms, isLoading, deleteAsync, createAsync };
