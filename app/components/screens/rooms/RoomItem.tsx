@@ -9,7 +9,7 @@ import styles from "../../ui/list/list.module.scss";
 
 interface Props {
   room: IRoom;
-  deleteFn: (id: string) => void;
+  deleteFn?: (id: string) => void;
 }
 
 const RoomItem: FC<Props> = ({ room, deleteFn }) => {
@@ -57,11 +57,13 @@ const RoomItem: FC<Props> = ({ room, deleteFn }) => {
         </div>
       )}
 
-      <div>
-        <button className={styles.button} onClick={() => deleteFn(id)}>
-          Удалить
-        </button>
-      </div>
+      {deleteFn && (
+        <div>
+          <button className={styles.button} onClick={() => deleteFn(id)}>
+            Удалить
+          </button>
+        </div>
+      )}
     </div>
   );
 };

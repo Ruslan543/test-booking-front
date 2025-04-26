@@ -1,13 +1,18 @@
 import Link from "next/link";
 import { FC } from "react";
 
+import { useUser } from "@/hooks/useUser";
+
+import { ROLES } from "@/shared/types/user.types";
+
 import styles from "../../ui/list/list.module.scss";
 
 import RoomItem from "./RoomItem";
 import { useRooms } from "./useRooms";
 
 const Rooms: FC = () => {
-  const { rooms, isLoading, deleteAsync } = useRooms();
+  const { user } = useUser();
+  const { rooms, isLoading, deleteFn } = useRooms();
 
   if (isLoading) return <div>Загрузка...</div>;
 
@@ -24,7 +29,13 @@ const Rooms: FC = () => {
       ) : (
         <div className={styles.list}>
           {rooms?.map((room) => (
-            <RoomItem key={room.id} room={room} deleteFn={deleteAsync} />
+            <RoomItem
+              key={room.id}
+              room={room}
+              deleteFn={
+                user?.roles.includes(ROLES.ADMIN) ? deleteFn : undefined
+              }
+            />
           ))}
         </div>
       )}
