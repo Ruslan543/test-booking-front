@@ -8,7 +8,7 @@ const HomePage: NextPage<any> = () => {
       Если запросы к REST API выполняются долго - это значит, что приостановился
       сервер из-за бездействия.
       <br />
-      <span className="text-yellow-700">Нужно немного подождать</span>
+      <div className="text-yellow-700">Нужно немного подождать</в>
     </div>
   );
 };
